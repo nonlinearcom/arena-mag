@@ -59,8 +59,9 @@ export default {
 
 	mounted() {
 		this.mySwiper = new Swiper('.swiper-container', {
-			effect: 'fade',
+			
 			speed: 1600,
+			effect: 'fade',
 			fadeEffect: {
 				crossFade: true
 			},

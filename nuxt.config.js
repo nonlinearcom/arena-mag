@@ -1,3 +1,4 @@
+import axios from 'axios'
 
 const arenaChannel = 'arena-mag'
 
@@ -7,6 +8,21 @@ export default {
 		arenaChannel
 	},
 	mode: 'universal',
+
+	generate: {
+		routes() {
+			return axios.get(`https://api.are.na/v2/channels/${arenaChannel}`)
+				.then((res) => {
+					return res.data.contents.map((channel) => {
+						return {
+							route: '/' + channel.slug
+						}
+					})
+				})
+		}
+	},
+
+
 	/*
 	** Headers of the page
 	*/
