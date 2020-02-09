@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="app-container">
     <nuxt />
   </div>
 </template>
@@ -16,6 +16,7 @@ body{
     margin: 0;
     -webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	color: #333333;
 }
 
 
@@ -46,10 +47,10 @@ a {
 	font-size: var(--font-size-small);
 }
 
+
 button:focus {
     outline: none!important;
     border: none;
-    background: none;
 }
 
 
