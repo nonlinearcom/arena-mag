@@ -37,10 +37,10 @@ p, a {
 a {
     color: #444444;
     text-decoration: none;
+}
 
-    &:hover{
-        color: #333333;
-    }
+a:hover{
+	color: #333333;
 }
 
 .small-text{

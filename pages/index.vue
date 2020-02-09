@@ -30,7 +30,7 @@ export default {
     async asyncData({ $axios, params, store }) {
 		//https://api.are.na/v2/channels/arena-mag?&direction=desc
         const channel = await $axios
-			.$get(`https://api.are.na/v2/channels/${process.env.arenaChannel}?&direction=desc`)
+			.$get(`https://api.are.na/v2/channels/${process.env.arenaChannel}?per=50&direction=desc`)
             .then(response => {
 
 				// get only channels

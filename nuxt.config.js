@@ -24,21 +24,24 @@ export default {
 	/*
 	** Customize the progress-bar color
 	*/
-	loading: { color: '#fff' },
+	loading: { color: '#222' },
 	/*
 	** Global CSS
 	*/
 	css: [
+		'plyr/dist/plyr.css',
 	],
 	/*
 	** Plugins to load before mounting the App
 	*/
 	plugins: [
+		'~/plugins/plyr.client.js',
 	],
 	/*
 	** Nuxt.js dev-modules
 	*/
 	buildModules: [
+		'@nuxtjs/global-components',
 	],
 	/*
 	** Nuxt.js modules
