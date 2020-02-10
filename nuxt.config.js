@@ -1,22 +1,28 @@
+require('dotenv').config()
 import axios from 'axios'
 
-const arenaChannel = 'arena-mag'
+// const arenaChannel = 'arena-mag'
+
 
 export default {
 
-	env: {
-		arenaChannel
-	},
 	mode: 'universal',
 
 	generate: {
 		routes() {
-			return axios.get(`https://api.are.na/v2/channels/${arenaChannel}`)
+			// console.log(`https://api.are.na/v2/channels/${process.env.arenaChannel}`, 'env vars')
+			return axios.get(`https://api.are.na/v2/channels/${process.env.arenaChannel}`)
 				.then((res) => {
 					return res.data.contents.map((channel) => {
-						return {
-							route: '/' + channel.slug
+						// console.log(channel.class ==='Channel', 'channel')
+						if (channel.class ==='Channel') {
+							return {
+								route: '/' + channel.slug
+							}
+						} else {
+							return { route: '/' }
 						}
+						
 					})
 				})
 		}
@@ -58,6 +64,7 @@ export default {
 	*/
 	buildModules: [
 		'@nuxtjs/global-components',
+		'@nuxtjs/dotenv',
 	],
 	/*
 	** Nuxt.js modules

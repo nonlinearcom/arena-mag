@@ -18,6 +18,7 @@
     "vue-plyr": "^6.0.4"
   },
   "devDependencies": {
+    "@nuxtjs/dotenv": "^1.4.1",
     "@nuxtjs/global-components": "^0.6.0"
   }
 }
