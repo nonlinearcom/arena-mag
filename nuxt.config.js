@@ -1,12 +1,16 @@
 require('dotenv').config()
 import axios from 'axios'
 
-// const arenaChannel = 'arena-mag'
 
 
 export default {
-
+	
 	mode: 'universal',
+	
+	env: {
+		arenaChannel: process.env.arenaChannel,
+		siteTitle: process.env.siteTitle,
+	},
 
 	generate: {
 		routes() {

@@ -1,5 +1,6 @@
 <template>
 	<div class="home">
+		<h1>{{siteTitle}}</h1>
 		<button class="menu-panel--toggle" @click="tooglePanel()"></button>
 		<div class="menu-panel" :class="{'open': menuIsOpen}">
 			<div v-html="about.content_html"></div>
@@ -23,11 +24,13 @@ export default {
 	},
 	data() {
 		return {
+			siteTitle: process.env.siteTitle,
 			blocks: [],
 			menuIsOpen: false
 		}
 	},
-    async asyncData({ $axios, params, store }) {
+
+    async asyncData({ $axios, env }) {
 		//https://api.are.na/v2/channels/arena-mag?&direction=desc
         const channel = await $axios
 			.$get(`https://api.are.na/v2/channels/${process.env.arenaChannel}?per=50&direction=desc`)
@@ -44,7 +47,8 @@ export default {
 
 				return {
 					articles,
-					about
+					about,
+					siteTitle: process.env.siteTitle
 				}
             })
 			.catch(e => console.log(e, "error"));
