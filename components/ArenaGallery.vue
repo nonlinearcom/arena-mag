@@ -1,29 +1,28 @@
 <template>
-	<div class="swiper-container">
-		<div class="swiper-wrapper">
-			<div
-				v-for="(block, index) in slides"
-				:key="index"
-				class="swiper-slide"
-			>
-				<div class="block" :class="block.class">
-					<Component :is="blockType(block)"  :block="block" />
-				</div>
+	<div>
+		<GalleryCursor ref="cursor" :cursor="cursor" />
 
-	<!-- <template v-for="(block, index) in channel"  >
-			<div class="block" :class="block.class" :key="index">
-				<Component :is="blockType(block)"  :block="block" />
-			</div>
-		</template> -->
-				<!-- <ProjectGalleryImage
-					v-if="slide.type !== 'video'"
-					:image-object="getImageObject(slide.image)"
-				/>
-				<ProjectGalleryVideo
-					v-else
-					:video-url="slide.videoUrl"
-					:video-poster="slide.videoPoster"
-				/> -->
+		<h2 class="arena-info">
+			{{title }} 
+		</h2>
+	
+		<div class="swiper-container"
+				ref="arenaGallery"
+				@click="galleryNav($event)"
+				@mousemove="onMouseMove($event)"
+				@mouseover="cursor.show = true"
+				@mouseleave="cursor.show = false"
+			>
+			<div class="swiper-wrapper">
+				<div
+					v-for="(block, index) in slides"
+					:key="index"
+					class="swiper-slide"
+				>
+					<div class="block" :class="block.class">
+						<Component :is="blockType(block)"  :block="block" />
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -40,20 +39,34 @@ import {
 } from 'swiper/js/swiper.esm.js'
 import 'swiper/css/swiper.css'
 
+import GalleryCursor from '@/components/GalleryCursor'
+
 // Install Swiper modules
 Swiper.use([Navigation, Pagination, EffectFade, Autoplay, Lazy])
 export default {
-
+	components: {
+		GalleryCursor,
+	},
 	props: {
 		slides: {
 			type: Array,
 			default: () => []
-		}
+		},
+		title: {
+			type: String,
+			default: ''
+		},
 	},
 
 	data() {
 		return {
 			mySwiper: null,
+			cursor: {
+				left: 0,
+				top: 0,
+				show: false,
+				icon: 'right'
+			}
 		}
 	},
 
@@ -82,7 +95,38 @@ export default {
 	methods: {
 		blockType(block) {
 			return `Block${block.class}`
-		}
+		},
+		onMouseMove(e) {
+			this.cursor.left = e.pageX
+			this.cursor.top = e.pageY
+			if(e.target.className == 'swiper-slide swiper-slide-active'){
+				if (e.pageX > window.innerWidth / 2) {
+					this.cursor.icon = 'right'
+				} else {
+					this.cursor.icon = 'left'
+				}
+			}else{
+				this.cursor.show = false
+				this.cursor.icon = 'pause'
+			}	
+		},
+		galleryNav(e) {
+			if(e.target.className == 'swiper-slide swiper-slide-active'){
+
+				if (e.pageX > window.innerWidth / 2) {
+					this.mySwiper.slideNext()
+				} else {
+					this.mySwiper.slidePrev()
+				}
+
+			} else{
+				this.cursor.show = false
+				this.cursor.icon = 'pause'
+			}
+		
+		},
+
+
 	},
 }
 </script>
@@ -104,4 +148,12 @@ export default {
 	justify-content: center;
 	cursor: none;
 }
+
+.arena-info{
+	position: fixed;
+	bottom: 32px;
+	left:32px;
+	z-index: 10;
+}
+
 </style>

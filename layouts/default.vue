@@ -1,8 +1,23 @@
 <template>
   <div class="app-container">
-    <nuxt />
+	  
+		<nuxt-link to="/" class="app-title">
+			<h1>{{siteTitle}}</h1>
+		</nuxt-link>
+		<nuxt />
+   
   </div>
 </template>
+
+<script>
+	export default {
+		data() {
+			return {
+				siteTitle: process.env.siteTitle
+			}	
+		}
+	}
+</script>
 
 <style>
 html, body {
@@ -31,7 +46,7 @@ h1, h2, h3, h4, h5, h6,
 p, a {
 	font-size: 21px;
 	line-height:  1.4;
-	font-weight: regular;
+	font-weight: normal;
 }
 
 a {
@@ -51,6 +66,16 @@ a:hover{
 button:focus {
     outline: none!important;
     border: none;
+}
+
+
+.app-title{
+	position:absolute;
+	top: 32px;
+	left: 32px;
+	font-weight: normal;
+	z-index:100;
+	color: #222222;
 }
 
 

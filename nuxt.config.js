@@ -10,6 +10,7 @@ export default {
 	env: {
 		arenaChannel: process.env.arenaChannel,
 		siteTitle: process.env.siteTitle,
+		siteContact: process.env.siteContact,
 	},
 
 	generate: {

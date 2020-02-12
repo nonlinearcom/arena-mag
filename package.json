@@ -13,12 +13,12 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
     "nuxt": "^2.0.0",
-    "plyr": "^3.5.7-beta.0",
+    "plyr": "^3.5.8",
     "swiper": "^5.3.1",
     "vue-plyr": "^6.0.4"
   },
   "devDependencies": {
     "@nuxtjs/dotenv": "^1.4.1",
-    "@nuxtjs/global-components": "^0.6.0"
+    "@nuxtjs/global-components": "^0.6.1"
   }
 }

@@ -1,28 +1,32 @@
 <template>
 	<div class="arena-feed">	
-		<nuxt-link class="back" to="/"></nuxt-link>
-		<ArenaGallery :slides="arenaChannel"/>
+		<ArenaGallery :slides="arenaChannel" :title="arenaChannelTitle" />
 	</div>
 </template>
 
 <script>
-import ArenaGallery from '@/components/ArenaGallery.vue';
+import ArenaGallery from '@/components/ArenaGallery'
+
 export default {
 	components: {
-		ArenaGallery,
+		ArenaGallery
 	},
 	async asyncData ({$axios, params, route}) {
 		
 		// are.na channel
 		const stack = await $axios.$get(`https://api.are.na/v2/channels/${route.params.slug}?per=30&direction=desc`)
 			.then(response => {		
-				return response.contents
+				return {
+					blocks: response.contents,
+					title: response.title
+				}
 			})
 			.catch(e => console.log(e, "error"));
 
 
       return {
-		arenaChannel: stack,  
+		arenaChannel: stack.blocks,
+		arenaChannelTitle: stack.title,    
       }
 	},
 	
@@ -31,7 +35,7 @@ export default {
 
 <style lang="css">
 
-.back{
+/* .back{
 	display: block;
 	position: fixed;
 	top:32px;
@@ -47,5 +51,7 @@ export default {
 	background-color: #222;
 	cursor: pointer;
 
-}
+} */
+
+
 </style>

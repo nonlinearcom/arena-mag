@@ -1,9 +1,12 @@
 <template>
 	<div class="home">
-		<h1>{{siteTitle}}</h1>
+		
 		<button class="menu-panel--toggle" @click="tooglePanel()"></button>
 		<div class="menu-panel" :class="{'open': menuIsOpen}">
 			<div v-html="about.content_html"></div>
+			<div class="contact">
+				<a :href="mailTo">contact</a>	
+			</div>
 		</div>
 		<nav class="article-list">
 			<template v-for="(block, index) in channel">
@@ -24,14 +27,13 @@ export default {
 	},
 	data() {
 		return {
-			siteTitle: process.env.siteTitle,
+			// siteTitle: process.env.siteTitle,
 			blocks: [],
 			menuIsOpen: false
 		}
 	},
 
     async asyncData({ $axios, env }) {
-		//https://api.are.na/v2/channels/arena-mag?&direction=desc
         const channel = await $axios
 			.$get(`https://api.are.na/v2/channels/${process.env.arenaChannel}?per=50&direction=desc`)
             .then(response => {
@@ -48,7 +50,6 @@ export default {
 				return {
 					articles,
 					about,
-					siteTitle: process.env.siteTitle
 				}
             })
 			.catch(e => console.log(e, "error"));
@@ -61,11 +62,17 @@ export default {
 			about: 	channel.about[0] // only the first
         };
 	},
+	computed: {
+		mailTo() {
+			return `mailto:${process.env.siteContact}`
+		},
+	},
 	methods: {
 		tooglePanel() {
-			this.menuIsOpen = !this.menuIsOpen;
+			this.menuIsOpen = !this.menuIsOpen
 		}
-	}
+	},
+	
 };
 </script>
 
@@ -129,5 +136,8 @@ export default {
 }
 .menu-panel.open{
 	transform: translateY(0);
+}
+.menu-panel .contact{
+	margin-top: 30px;
 }
 </style>
